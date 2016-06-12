@@ -109,13 +109,11 @@ public class NavioDAO {
         try (Connection conn = config.conectar()) {
 
             //CallableStatement cs = conn.prepareCall("{call InserirNavio(?,?,?,?,?)}");
-            String sql = "insert into navio (id_Navio,nome,status,capacidade) values (?,?,?,?)";
+            String sql = "insert into navio (nome,status,cap_maxima) values (?,?,?)";
             PreparedStatement cs = conn.prepareStatement(sql);
-            cs.setInt(1, navio.getId_Navio());
-
-            cs.setString(2, navio.getNome());
-            cs.setString(3, navio.getStatus());
-            cs.setDouble(4, navio.getCap_Maxima());
+            cs.setString(1, navio.getNome());
+            cs.setString(2, navio.getStatus());
+            cs.setDouble(3, navio.getCap_Maxima());
 
             cs.execute();
 

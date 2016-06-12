@@ -5,6 +5,8 @@
  */
 package SERVLET;
 
+import MODEL.Navio;
+import MODELO.DAO.NavioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,17 +33,38 @@ public class NovoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NovoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NovoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+            String metodo = request.getParameter("metodo");
+
+            switch (metodo) {
+                case "cadastrarnavio":
+                    cadastrarNavio(request, response);
+                    break;
+
+                default:
+                    response.sendRedirect("index.jsp");
+                    break;
+            }
         }
+    }
+
+    private void cadastrarNavio(HttpServletRequest request, HttpServletResponse response) 
+    throws ServletException, IOException{
+
+        //obter infos
+        String nome = request.getParameter("nome");
+        Double capacidade = Double.parseDouble(request.getParameter("Cap_Maxima"));
+        String status = request.getParameter("status");        
+        
+        Navio nv = new Navio(nome, status, capacidade);
+        
+        NavioDAO nDao = new NavioDAO();
+        
+        //Se der sucesso no insert, leva a pagina de lista
+        if(nDao.insereNavio(nv))
+            response.sendRedirect("principal.jsp");
+        else //se falhar, leva a index
+            response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

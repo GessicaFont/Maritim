@@ -21,14 +21,14 @@ class Configurador {
 
     String databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
     String usuario = "postgres";
-    String senha = "1234";
+    String senha = "123456";
     String driverName = "org.postgresql.Driver";
     //Connection conn;
 
     public Configurador() {
         databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
         usuario = "postgres";
-        senha = "1234";
+        senha = "123456";
         driverName = "org.postgresql.Driver";
     }
 

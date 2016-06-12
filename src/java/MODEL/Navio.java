@@ -18,8 +18,7 @@ public @Data class Navio {
     public Navio() {
     }
 
-    public Navio(int Id_Navio, String Nome, String Status, double Cap_Maxima) {
-        this.Id_Navio = Id_Navio;
+    public Navio(String Nome, String Status, double Cap_Maxima) {        
         this.Nome = Nome;
         this.Status = Status;
         this.Cap_Maxima = Cap_Maxima;
