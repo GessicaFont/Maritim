@@ -68,7 +68,7 @@ public class NovoServlet extends HttpServlet {
 
         //Se der sucesso no insert, leva a pagina de lista
         if (nDao.insereNavio(nv)) {
-            response.sendRedirect("principal.jsp");
+            response.sendRedirect("Navios.jsp");
         } else //se falhar, leva a index
         {
             response.sendRedirect("index.jsp");

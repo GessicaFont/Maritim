@@ -11,8 +11,6 @@
 
 <html lang="en-US">
     <head>
-
-
         <meta charset="utf-8">
         <title>PCS-SGBD  - Marítima</title>
         <meta name="description" content="">
@@ -44,8 +42,8 @@
                     <div class="navbar-collapse collapse" data-scrollreveal="enter from the right 50px">
                         <ul class="nav navbar-nav">
                             <li class=""><a href="index.jsp">Home</a></li><!-- menu links-->
-                            <li><a href="principal.jsp">Navios</a></li>  
-                            <li><a href="#section-works">Cargas</a></li>
+                            <li><a href="Navios.jsp">Navios</a></li>  
+                            <li><a href="Cargas.jsp">Cargas</a></li>
                             <li><a href="#section-services">Rotas</a></li>
                             <li><a href="#section-contact">Contact</a></li>
                         </ul>
@@ -61,86 +59,67 @@
             <h1>Registrar Carga</h1>
 
             <form action="NovoServlet?metodo=cadastrarcarga" method="POST">  
-                <div class="col-2">
-                    <label>
-                        <% 
-                            out.println("<div class='col-3'");  
-                            out.println("<label>");                            
-                            out.println("NAVIO");
-                            
-                            out.println("<select tabindex='1' name='navio' id='navios'>");
-                            NavioDAO acesso = new NavioDAO();
-                            List<Navio> lista = acesso.getListaNavios();
-                            
-                            for (Navio navios : lista) {
-                                out.println("<option value=\"" + navios.getId_Navio() + "\" >" + navios.getNome() + "</option>");
-                            }
-                            
-                            out.println("</select>"); 
-                            out.println("</label>"); 
-                            out.println("</div>"); 
-                %>
-                    </label>
-                </div>
-                <div class="col-2">
-                    <label>
-                        Origem
-                        <input placeholder="" id="company" name="origem" tabindex="2">
-                    </label>
-                </div><div class="col-2">
-                    <label>
-                        Destino
-                        <input placeholder="" id="company" name="destino" tabindex="3">
-                    </label>
-                </div>
+                <table> <%
+                    out.println("<tr>");
+                    out.println("<td>");
+                    out.println("NAVIO");
+                    out.println("</td>");
+                    out.println("<td><select tabindex='1' name='navio' id='navios'>");
+                    NavioDAO acesso = new NavioDAO();
+                    List<Navio> lista = acesso.getListaNavios();
 
-                <div class="col-3">
-                    <label>
-                        Peso
-                        <input placeholder="" id="email" name="peso" tabindex="4">
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        Data máxima
-                        <input placeholder="" id="email" name="data_max" tabindex="5">
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        STATUS
-                        <select tabindex="5" name="status">
-                            <option value="1">Embarcada</option>
-                            <option value="0">Não Embarcada</option>        
-                        </select>
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        Tipo
-                        <select tabindex="5" name="tipo">
-                            <option value="1">Perecível</option>
-                            <option value="2">Outro tipo</option>        
-                        </select>
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        Data validade
-                        <input placeholder="" id="email" name="validade" tabindex="4">
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        Temperatura máxima
-                        <input placeholder="" id="email" name="temperatura" tabindex="4">
-                    </label>
-                </div>
-                <div class="col-4">
+                    for (Navio navios : lista) {
+                        out.println("<option value=\"" + navios.getId_Navio() + "\" >" + navios.getNome() + "</option>");
+                    }
 
-                    <div class="col-submit">
-                        <button class="submitbtn">Submeter</button>
+                    out.println("</td>");
+                    out.println("</tr>");
+                    %>
+                    <tr><td>
+                            Origem</td>
+                        <td><input placeholder="" id="company" name="origem" tabindex="2"></td>
+                    </tr>
+    <tr><td>
+            Destino</td>
+        <td><input placeholder="" id="company" name="destino" tabindex="3"></td>
+    </tr>
+    <tr><td>
+            Peso</td>
+        <td> <input placeholder="" id="email" name="peso" tabindex="4"></td>
+    </tr>
+                    <tr>
+                        <td>
+                            Data máxima</td>
+                        <td><input placeholder="" id="email" name="data_max" tabindex="5"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            STATUS</td>
+                        <td><select tabindex="5" name="status">
+                                <option value="1">Embarcada</option>
+                                <option value="0">Não Embarcada</option>        
+                            </select></td></tr>
                     </div>
+                    <tr>
+                        <td>
+                            Tipo</td>
+                        <td><select tabindex="5" name="tipo">
+                                <option value="1">Perecível</option>
+                                <option value="2">Outro tipo</option>        
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Data validade</td><td>
+                            <input placeholder="" id="email" name="validade" tabindex="4"></td></tr>
+                    <tr>
+                        <td>Temperatura máxima</td>
+                        <td><input placeholder="" id="email" name="temperatura" tabindex="4"></td></tr>
+
+                    <tr><td>
+                            <button class="submitbtn">Submeter</button></td>
+                    </tr>
+                </table>
 
             </form>
         </div>

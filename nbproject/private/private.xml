@@ -5,12 +5,9 @@
         <group>
             <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/web/Cargas.jsp</file>
             <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/src/java/SERVLET/NovoServlet.java</file>
-            <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/src/java/MODELO/DAO/NavioDAO.java</file>
-            <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/src/java/MODEL/Configurador.java</file>
+            <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/src/java/MODELO/DAO/CargaDAO.java</file>
             <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/web/principal.jsp</file>
             <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/web/Navios.jsp</file>
-            <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/web/index.jsp</file>
-            <file>file:/C:/Users/bruno/Desktop/PCSSGBD/Maritim/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

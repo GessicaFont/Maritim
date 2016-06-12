@@ -41,7 +41,7 @@
                     <div class="navbar-collapse collapse" data-scrollreveal="enter from the right 50px">
                         <ul class="nav navbar-nav">
                             <li class=""><a href="index.jsp">Home</a></li><!-- menu links-->
-                            <li><a href="principal.jsp">Navios</a></li>  
+                            <li><a href="Navios.jsp">Navios</a></li>  
                             <li><a href="Cargas.jsp">Cargas</a></li>
                             <li><a href="#section-services">Rotas</a></li>
                             <li><a href="#section-contact">Contact</a></li>
@@ -58,38 +58,30 @@
             <h1>Registrar navio</h1>
 
             <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
-                <div class="col-2">
-                    <label>
-                        NOME
-                        <input placeholder="" id="company" name="nome" tabindex="2" >
-                    </label>
-                </div>
-
-
-                <div class="col-3">
-                    <label>
-                        CAPACIDADE MÁXIMA
-                        <input placeholder="" id="email" name="Cap_Maxima" tabindex="4">
-                    </label>
-                </div>
-                <div class="col-3">
-                    <label>
-                        STATUS
-                        <select tabindex="5" name="status">
-                            <option>Embarcada</option>
-                            <option>Ocioso</option>
-                            <option>Manutenção</option>
-                            <option>Desativado</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="col-4">
-
-                    <div class="col-submit">
-                        <button class="submitbtn">Submeter</button>
-                    </div>
-
+                <table>
+                    <tr>
+                        <td>NOME</td>
+                        <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
+                    </tr>
+                    <tr>
+                        <td>CAPACIDADE MÁXIMA</td>
+                        <td>
+                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
+                    </tr>
+                    <tr>
+                        <td>STATUS</td>
+                        <td> <select tabindex="5" name="status">
+                                <option>Embarcada</option>
+                                <option>Ocioso</option>
+                                <option>Manutenção</option>
+                                <option>Desativado</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="submitbtn">Submeter</button></td>
+                    </tr>
+                </table>
             </form>
         </div>
         <script type="text/javascript">
@@ -99,7 +91,25 @@
                 var switchery = new Switchery(html);
             });
         </script>
-        
+
+        <br><br><br>
+        <h2>Navios inseridos no banco:</h2>
+        <%
+            NavioDAO acesso = new NavioDAO();
+            Navio navioteste;
+            List<Navio> lista = acesso.getListaNavios();
+
+            for (int i = 0; i < lista.size(); i++) {
+                navioteste = lista.get(i);
+
+        %>
+        <p>O navio  de ID <%=navioteste.getId_Navio()%> <br>nome : <%=navioteste.getNome()%> <br> Status  <%=navioteste.getStatus()%>  <br> capacidade  <%=navioteste.getCap_Maxima()%> está no bd. 
+
+            <br><br>
+            <%
+                }
+            %>
+
 
     </body>
 </html>       
