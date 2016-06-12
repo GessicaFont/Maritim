@@ -38,7 +38,7 @@ public class NavioDAO {
 
         navio.setNome(rs.getString("nome"));
         navio.setStatus(rs.getString("status"));
-        navio.setCap_Maxima(rs.getDouble("capacidade"));
+        navio.setCap_Maxima(rs.getDouble("cap_maxima"));
 
         return navio;
     }
