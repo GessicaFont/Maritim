@@ -41,8 +41,13 @@
             <div class="navbar-collapse collapse" data-scrollreveal="enter from the right 50px">
                 <ul class="nav navbar-nav">
                     <li class=""><a href="#Homepage">Home</a></li><!-- menu links-->
-                    <li><a href="principal.jsp">Navios</a></li>  
-                    <li><a href="#section-works">Cargas</a></li>
+                    
+                  
+                    <li><a href="Navios.jsp">Navios</a>
+                     
+                        </li>
+                         
+                    <li><a href="Cargas.jsp">Cargas</a></li>
                     <li><a href="#section-services">Rotas</a></li>
                     <li><a href="#section-contact">Contact</a></li>
                 </ul>
