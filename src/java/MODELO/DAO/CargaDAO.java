@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
+import java.sql.Date;
 
 /**
  *
@@ -32,15 +33,15 @@ public class CargaDAO {
     */
     public Carga montaCarga(ResultSet rs) throws SQLException{
         Carga carga = new Carga();
-        carga.setId_Carga(rs.getInt("id_Carga"));
-        carga.setId_Navio(rs.getInt("id_Navio"));
+        carga.setId_Carga(rs.getInt("id_carga"));
+        carga.setId_Navio(rs.getInt("id_navio"));
         carga.setOrigem(rs.getString("origem"));
         carga.setDestino(rs.getString("destino"));
         carga.setPeso(rs.getDouble("peso"));
-        carga.setData_Max(DateTime.parse(rs.getString("data")));
+        carga.setData_Max(DateTime.parse(rs.getString("data_max")));
         carga.setEmbarcada(rs.getBoolean("embarcada"));
         carga.setTipo(rs.getInt("tipo"));
-        carga.setTemp_Max(rs.getDouble("temp"));
+        carga.setTemp_Max(rs.getDouble("temp_max"));
         carga.setData_Validade(DateTime.parse(rs.getString("data_validade")));
         
         
@@ -114,17 +115,23 @@ public class CargaDAO {
     public boolean insereCarga(Carga carga){
         try(Connection conn = config.conectar()){
              
+            Date sqlData_Validade = new Date(carga.getData_Validade().toDate().getTime());
+            Date sqlData_Max = new Date(carga.getData_Max().toDate().getTime());
+            
             //CallableStatement cs = conn.prepareCall("{call InserirCarga(?,?,?,?,?)}");
-            String sql="insert into Carga (id_Carga,id_Navio,origem,destino,peso,data,embarcada,tipo,temp,data_validade) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql="insert into Carga (id_navio,origem,destino,peso,data_max,embarcada,tipo,temp_max,data_validade) "
+                    + "values (?,?,?,?,?,?,?,?,?)";
+            
             PreparedStatement cs = conn.prepareStatement(sql);
-            cs.setInt(1, carga.getId_Carga());
-            cs.setInt(2, carga.getId_Navio());
-            cs.setString(3, carga.getOrigem());
-            cs.setString(4, carga.getDestino());
-            cs.setDouble(5, carga.getPeso());
-        //    cs.setBoolean(6,carga.getEmbarcada());
-        cs.setInt(6, carga.getTipo());
-        cs.setDouble(7, carga.getTemp_Max());
+            cs.setInt(1, carga.getId_Navio());
+            cs.setString(2, carga.getOrigem());
+            cs.setString(3, carga.getDestino());
+            cs.setDouble(4, carga.getPeso());
+            cs.setDate(5, sqlData_Max);
+            cs.setBoolean(6,carga.isEmbarcada());
+            cs.setInt(7, carga.getTipo());
+            cs.setDouble(8, carga.getTemp_Max());
+            cs.setDate(9, sqlData_Validade);
        
         
             cs.execute();
