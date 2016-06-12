@@ -15,50 +15,48 @@ import lombok.Data;
  *
  * @author gessica
  */
-public @Data class Configurador {
+public @Data
+class Configurador {
 ///private String url,driver,login,senha;
-String databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
+
+    String databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
     String usuario = "postgres";
     String senha = "1234";
     String driverName = "org.postgresql.Driver";
     //Connection conn;
 
-    public Configurador(){
+    public Configurador() {
         databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
-    usuario = "postgres";
-    senha = "1234";
-   driverName = "org.postgresql.Driver";
+        usuario = "postgres";
+        senha = "1234";
+        driverName = "org.postgresql.Driver";
     }
-    public Connection conectar() throws SQLException{
+
+    public Connection conectar() throws SQLException {
         Connection conexao;
-        
-        try
-        {
+
+        try {
             Class.forName(driverName).newInstance();
-       conexao = DriverManager.getConnection(databaseURL, usuario, senha);
+            conexao = DriverManager.getConnection(databaseURL, usuario, senha);
             return conexao;
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Não foi possível estabelecer uma conexão com o banco de dados - erro de SQL");
             System.out.println(e.getMessage());
             return null;
-        } catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Não foi possível estabelecer uma conexão com o banco de dados - driver não encontrado");
             return null;
-        } catch (InstantiationException e)
-        {
+        } catch (InstantiationException e) {
             System.out.println("Não foi possível estabelecer uma conexão com o banco de dados - erro de instanciação do driver");
             return null;
-        } catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             System.out.println("Não foi possível estabelecer uma conexão com o banco de dados - acesso ilegal no driver");
             return null;
         }
-    
-    
-    }}
+
+    }
+}
 
 //    public Configurador(){
 //        try {  
@@ -88,5 +86,4 @@ String databaseURL = "jdbc:postgresql://localhost:5432/Maritima";
 //        }  
 //    }  
 //    }
-   
 
