@@ -35,5 +35,9 @@ public @Data class Carga {
         this.Embarcada = Embarcada;
     }
     
+    public String getTipoCarga()
+    {
+        return this.tipo == 1 ? "Perecível" : "Outro Tipo"; 
+    }
     
 }

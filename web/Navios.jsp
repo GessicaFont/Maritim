@@ -64,7 +64,7 @@
                         <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
                     </tr>
                     <tr>
-                        <td>CAPACIDADE MÁXIMA</td>
+                        <td>CAPACIDADE MÁXIMA (Em KG) </td>
                         <td>
                             <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
                     </tr>
@@ -93,23 +93,36 @@
         </script>
 
         <br><br><br>
-        <h2>Navios inseridos no banco:</h2>
-        <%
-            NavioDAO acesso = new NavioDAO();
-            Navio navioteste;
-            List<Navio> lista = acesso.getListaNavios();
+        <h2>Navios cadastrados:</h2>
+        <table style="text-align: center;" border="1px">
+            <tr>
+                <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
+                <td style="width: 250px; background-color: #c0c0c0">Nome</td>
+                <td style="width: 100px; background-color: #c0c0c0">Status</td>
+                <td style="width: 100px; background-color: #c0c0c0">Capacidade</td>
+                <td style="width: 200px; background-color: #c0c0c0">Ação</td>
+            </tr>
+            <%
+                NavioDAO acesso = new NavioDAO();
+                Navio navioteste;
+                List<Navio> lista = acesso.getListaNavios();
 
-            for (int i = 0; i < lista.size(); i++) {
-                navioteste = lista.get(i);
+                for (int i = 0; i < lista.size(); i++) {
+                    navioteste = lista.get(i);
 
-        %>
-        <p>O navio  de ID <%=navioteste.getId_Navio()%> <br>nome : <%=navioteste.getNome()%> <br> Status  <%=navioteste.getStatus()%>  <br> capacidade  <%=navioteste.getCap_Maxima()%> está no bd. 
+            %>
 
-            <br><br>
+            <tr>
+                <td><%=navioteste.getId_Navio()%></td>
+                <td><%=navioteste.getNome()%></td>
+                <td><%=navioteste.getStatus()%></td>
+                <td><%=navioteste.getCap_Maxima()%></td>
+                <td>Alterar | Excluir</td>
+            </tr>
             <%
                 }
             %>
-
+        </table>
 
     </body>
 </html>       

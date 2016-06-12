@@ -52,11 +52,12 @@ public class NavioDAO {
         Connection conn = null;
         try {
             conn = config.conectar();
+            
             if (conn == null) {
                 return null;
             }
 
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Navio WHERE Id_Navio = ?");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM navio WHERE id_navio = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 

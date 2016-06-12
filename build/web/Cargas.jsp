@@ -79,14 +79,14 @@
                             Origem</td>
                         <td><input placeholder="" id="company" name="origem" tabindex="2"></td>
                     </tr>
-    <tr><td>
-            Destino</td>
-        <td><input placeholder="" id="company" name="destino" tabindex="3"></td>
-    </tr>
-    <tr><td>
-            Peso</td>
-        <td> <input placeholder="" id="email" name="peso" tabindex="4"></td>
-    </tr>
+                    <tr><td>
+                            Destino</td>
+                        <td><input placeholder="" id="company" name="destino" tabindex="3"></td>
+                    </tr>
+                    <tr><td>
+                            Peso</td>
+                        <td> <input placeholder="" id="email" name="peso" tabindex="4"></td>
+                    </tr>
                     <tr>
                         <td>
                             Data máxima</td>
@@ -132,27 +132,46 @@
         </script>
         <br><br><br>
 
-        <h2>Recuperação de todos as cargas do banco</h2>
-        <%
-            CargaDAO cDao = new CargaDAO();
-            Carga cargateste;
-            List<Carga> listaCarga = cDao.getListaCargas();
+        <h2>Cargas cadastradas</h2>
 
-            for (int i = 0; i < listaCarga.size(); i++) {
-                cargateste = listaCarga.get(i);
-        %>
-        <p>O navio  de ID <%=cargateste.getId_Navio()%> <br>
-            Id carga : <%=cargateste.getId_Carga()%> <br> 
-            Origem  <%=cargateste.getOrigem()%>  <br> 
-            Destino  <%=cargateste.getDestino()%> <br> 
-            Peso  <%=cargateste.getPeso()%><br> 
-            Tipo  <%=cargateste.getTipo()%> está no bd. 
+        <table style="text-align: center;" border="1px">
+            <tr>
+                <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
+                <td style="width: 250px; background-color: #c0c0c0">Navio</td>
+                <td style="width: 350px; background-color: #c0c0c0">Origem</td>
+                <td style="width: 350px; background-color: #c0c0c0">Destino</td>
+                <td style="width: 100px; background-color: #c0c0c0">Peso</td>
+                <td style="width: 100px; background-color: #c0c0c0">Tipo</td>
+                <td style="width: 200px; background-color: #c0c0c0">Ação</td>
+            </tr>
+            <%
+                CargaDAO cDao = new CargaDAO();
+                NavioDAO nDao = new NavioDAO();
+                
+                Carga cargateste;
+                List<Carga> listaCarga = cDao.getListaCargas();
 
-            <br><br>
+                for (int i = 0; i < listaCarga.size(); i++) {
+                    cargateste = listaCarga.get(i);
+                    String navio = "";
+                    Navio nv = nDao.getNavio(cargateste.getId_Navio());
+                    
+                    if(nv!= null)
+                        navio = nv.getNome();
+            %>
+            <tr>
+                <td><%=cargateste.getId_Carga()%> </td> 
+                <td><%=navio%> </td>
+                <td><%=cargateste.getOrigem()%>  </td> 
+                <td><%=cargateste.getDestino()%> </td>
+                <td><%=cargateste.getPeso()%></td>
+                <td><%=cargateste.getTipoCarga()%> </td>
+                <td>Alterar | Excluir</td>
+            </tr>
             <%
                 }
             %>
-
-
+        </table>
+<br><br><br>
     </body>
 </html>       
