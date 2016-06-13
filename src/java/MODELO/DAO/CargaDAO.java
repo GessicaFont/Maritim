@@ -188,7 +188,7 @@ public class CargaDAO {
                 return false;
             }
         
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Carga WHERE id=?"); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM carga WHERE id_carga=?"); 
             ps.setInt(1, id);
             ps.executeQuery();
             

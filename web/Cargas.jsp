@@ -166,7 +166,7 @@
                 <td><%=cargateste.getDestino()%> </td>
                 <td><%=cargateste.getPeso()%></td>
                 <td><%=cargateste.getTipoCarga()%> </td>
-                <td>Alterar | Excluir</td>
+                <td>Alterar | <a href="NovoServlet?metodo=excluircarga&cargaid=<%=cargateste.getId_Carga()%>">Excluir</a></td>
             </tr>
             <%
                 }

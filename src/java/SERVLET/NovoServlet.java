@@ -37,21 +37,29 @@ public class NovoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-            String metodo = request.getParameter("metodo");
+        String metodo = request.getParameter("metodo");
 
-            switch (metodo) {
-                case "cadastrarnavio":
-                    cadastrarNavio(request, response);
-                    break;
+        switch (metodo) {
+            case "cadastrarnavio":
+                cadastrarNavio(request, response);
+                break;
 
-                case "cadastrarcarga":
-                    cadastrarCarga(request, response);
-                    break;
+            case "excluirnavio":
+                excluirNavio(request, response);
+                break;
 
-                default:
-                    response.sendRedirect("index.jsp");
-                    break;
-            }
+            case "cadastrarcarga":
+                cadastrarCarga(request, response);
+                break;
+
+            case "excluircarga":
+                excluirCarga(request, response);
+                break;
+
+            default:
+                response.sendRedirect("index.jsp");
+                break;
+        }
     }
 
     private void cadastrarNavio(HttpServletRequest request, HttpServletResponse response)
@@ -75,6 +83,24 @@ public class NovoServlet extends HttpServlet {
         }
     }
 
+    
+    private void excluirNavio(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int navioId = Integer.parseInt(request.getParameter("navioid"));
+
+        NavioDAO nDao = new NavioDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (nDao.removeNavio(navioId)) {
+            response.sendRedirect("Navio.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+    
     private void cadastrarCarga(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -88,7 +114,6 @@ public class NovoServlet extends HttpServlet {
         DateTime data_Max = formatter.parseDateTime(request.getParameter("data_max"));
         DateTime data_validade = formatter.parseDateTime(request.getParameter("validade"));
 
-        String asdasd= request.getParameter("status");
         boolean status;
         if (request.getParameter("status").equals("1")) {
             status = true;
@@ -105,6 +130,23 @@ public class NovoServlet extends HttpServlet {
 
         //Se der sucesso no insert, leva a pagina de lista
         if (cDao.insereCarga(carga)) {
+            response.sendRedirect("Cargas.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluirCarga(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int cargaId = Integer.parseInt(request.getParameter("cargaid"));
+
+        CargaDAO cDao = new CargaDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (cDao.removeCarga(cargaId)) {
             response.sendRedirect("Cargas.jsp");
         } else //se falhar, leva a index
         {

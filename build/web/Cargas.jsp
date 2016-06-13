@@ -166,7 +166,6 @@
                 <td><%=cargateste.getDestino()%> </td>
                 <td><%=cargateste.getPeso()%></td>
                 <td><%=cargateste.getTipoCarga()%> </td>
-                <td>Alterar | Excluir</td>
             </tr>
             <%
                 }

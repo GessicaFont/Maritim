@@ -169,7 +169,7 @@ public class NavioDAO {
                 return false;
             }
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Navio WHERE id=?");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM navio WHERE id_navio=?");
             ps.setInt(1, id);
             ps.executeQuery();
 
