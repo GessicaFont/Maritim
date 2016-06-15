@@ -16,4 +16,15 @@ public @Data class Agente {
     int Id_Porto;
     String Nome;
     String Telefone;
+
+    public Agente() {
+    }
+
+    public Agente(int Cod_Agente, int Id_Porto, String Nome, String Telefone) {
+        this.Cod_Agente = Cod_Agente;
+        this.Id_Porto = Id_Porto;
+        this.Nome = Nome;
+        this.Telefone = Telefone;
+    }
+    
 }

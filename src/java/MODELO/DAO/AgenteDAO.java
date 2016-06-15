@@ -34,7 +34,7 @@ public class AgenteDAO {
         agente.setCod_Agente(rs.getInt("Cod_Agente"));
         agente.setId_Porto(rs.getInt("id_Porto"));
         agente.setNome(rs.getString("nome"));
-        agente.setTelefone(rs.getString("fone"));
+        agente.setTelefone(rs.getString("telefone"));
         
         return agente;
     }
@@ -82,7 +82,7 @@ public class AgenteDAO {
                 return null;
             }
         
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Agente_Receptor"); 
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM agente_receptor"); 
             ResultSet rs = ps.executeQuery();
                 
             while(rs.next()){
@@ -101,12 +101,12 @@ public class AgenteDAO {
         try(Connection conn = config.conectar()){
              
             //CallableStatement cs = conn.prepareCall("{call InserirAgente(?,?,?,?,?)}");
-            String sql="insert into Agente_Receptor (Cod_Agente,id-Porto,nome,fone) values (?,?,?,?)";
+            String sql="insert into Agente_Receptor (Cod_Agente,id_Porto,nome,telefone) values (?,?,?,?)";
             PreparedStatement cs = conn.prepareStatement(sql);
             cs.setInt(1, agente.getCod_Agente());
-            cs.setInt(1, agente.getId_Porto());
-            cs.setString(2, agente.getNome());
-            cs.setString(3, agente.getTelefone());
+            cs.setInt(2, agente.getId_Porto());
+            cs.setString(3, agente.getNome());
+            cs.setString(4, agente.getTelefone());
           
         
             cs.execute();
@@ -156,9 +156,9 @@ public class AgenteDAO {
                 return false;
             }
         
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Agente_Receptor WHERE id=?"); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Agente_Receptor WHERE cod_agente=?"); 
             ps.setInt(1, id);
-            ps.executeQuery();
+            ps.executeUpdate();
             
         } catch (SQLException e){
             System.out.println(e.getMessage());

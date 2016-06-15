@@ -43,8 +43,8 @@
                             <li class=""><a href="index.jsp">Home</a></li><!-- menu links-->
                             <li><a href="Navios.jsp">Navios</a></li>  
                             <li><a href="Cargas.jsp">Cargas</a></li>
-                            <li><a href="#section-services">Rotas</a></li>
-                            <li><a href="#section-contact">Contact</a></li>
+                            <li><a href="Rotas.jsp">Rotas</a></li>
+                            <li><a href="Portos.jsp">Portos</a></li>
                         </ul>
                     </div>
 
@@ -55,7 +55,7 @@
 
         <div id="wrapper">
             <br><br><br><br>
-            <h1>Registrar navio</h1>
+            <h1>Registrar Navio</h1>
 
             <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
                 <table>

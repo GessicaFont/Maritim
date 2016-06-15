@@ -171,7 +171,7 @@ public class NavioDAO {
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM navio WHERE id_navio=?");
             ps.setInt(1, id);
-            ps.executeQuery();
+            ps.execute();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

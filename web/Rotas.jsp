@@ -1,3 +1,7 @@
+<%@page import="MODEL.Rota"%>
+<%@page import="MODELO.DAO.RotaDAO"%>
+<%@page import="MODELO.DAO.PortoDAO"%>
+<%@page import="MODEL.Porto"%>
 <%@page import="MODEL.Navio"%>
 <%@page import="MODELO.DAO.NavioDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -55,28 +59,43 @@
 
         <div id="wrapper">
             <br><br><br><br>
-            <h1>Registrar Navio</h1>
+            <h1>Registrar Rota</h1>
 
-            <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
+            <form action="NovoServlet?metodo=cadastrarrota" method="POST">
                 <table>
-                    <tr>
-                        <td>NOME</td>
-                        <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
-                    </tr>
-                    <tr>
-                        <td>CAPACIDADE MÁXIMA (Em KG) </td>
-                        <td>
-                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
-                    </tr>
-                    <tr>
-                        <td>STATUS</td>
-                        <td> <select tabindex="5" name="status">
-                                <option>Embarcada</option>
-                                <option>Ocioso</option>
-                                <option>Manutenção</option>
-                                <option>Desativado</option>
-                            </select></td>
-                    </tr>
+                    <%
+                        out.println("<tr>");
+                        out.println("<td>");
+                        out.println("PORTO DE ORIGEM");
+                        out.println("</td>");
+                        out.println("<td><select tabindex='1' name='porto_origem' id='portoOrig'>");
+                        PortoDAO pDao = new PortoDAO();
+                        List<Porto> lista = pDao.getListaPortos();
+
+                        for (Porto porto : lista) {
+                            out.println("<option value=\"" + porto.getId_Porto() + "\" >" + porto.getNome() + " - "
+                                    + porto.getLocal() + "</option>");
+                        }
+
+                        out.println("</td>");
+                        out.println("</tr>");
+                    %>
+
+                    <%
+                        out.println("<tr>");
+                        out.println("<td>");
+                        out.println("PORTO DE DESTINO");
+                        out.println("</td>");
+                        out.println("<td><select tabindex='1' name='porto_destino' id='portoDest'>");
+
+                        for (Porto porto : lista) {
+                            out.println("<option value=\"" + porto.getId_Porto() + "\" >" + porto.getNome() + " - "
+                                    + porto.getLocal() + "</option>");
+                        }
+
+                        out.println("</td>");
+                        out.println("</tr>");
+                    %>
                     <tr>
                         <td>
                             <button class="submitbtn">Submeter</button></td>
@@ -93,31 +112,38 @@
         </script>
 
         <br><br><br>
-        <h2>Navios cadastrados:</h2>
+        <h2>Rotas cadastradas:</h2>
         <table style="text-align: center;" border="1px">
             <tr>
                 <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
-                <td style="width: 250px; background-color: #c0c0c0">Nome</td>
-                <td style="width: 100px; background-color: #c0c0c0">Status</td>
-                <td style="width: 100px; background-color: #c0c0c0">Capacidade</td>
+                <td style="width: 250px; background-color: #c0c0c0">Porto de Origem</td>
+                <td style="width: 250px; background-color: #c0c0c0">Porto de Destino</td>
                 <td style="width: 200px; background-color: #c0c0c0">Ação</td>
             </tr>
             <%
-                NavioDAO acesso = new NavioDAO();
-                Navio navioteste;
-                List<Navio> lista = acesso.getListaNavios();
-
-                for (int i = 0; i < lista.size(); i++) {
-                    navioteste = lista.get(i);
-
+                RotaDAO rDao = new RotaDAO();
+                Rota rota = new Rota();
+                List<Rota> listaRota = rDao.getListaRotas();
+                                
+                for (int i = 0; i < listaRota.size(); i++) {
+                    rota = listaRota.get(i);
+                    String portoOrigem = "", portoDestino = "";
+                    
+                    Porto portOrigem = pDao.getPorto(rota.getId_Porto_Origem());
+                    Porto portDestino = pDao.getPorto(rota.getId_Porto_Destino());
+                    
+                    if(portOrigem!= null)
+                        portoOrigem = portOrigem.getNome();
+                    
+                    if(portDestino!= null)
+                        portoDestino = portDestino.getNome();
             %>
 
             <tr>
-                <td><%=navioteste.getId_Navio()%></td>
-                <td><%=navioteste.getNome()%></td>
-                <td><%=navioteste.getStatus()%></td>
-                <td><%=navioteste.getCap_Maxima()%></td>
-                <td>Alterar | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
+                <td><%=rota.getId_Rota()%></td>
+                <td><%=portoOrigem%></td>
+                <td><%=portoDestino%></td>
+                <td>Alterar | <a href="NovoServlet?metodo=excluirrota&rotaid=<%=rota.getId_Rota()%>">Excluir</a></td>
             </tr>
             <%
                 }

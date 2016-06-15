@@ -5,10 +5,16 @@
  */
 package SERVLET;
 
+import MODEL.Agente;
 import MODEL.Carga;
 import MODEL.Navio;
+import MODEL.Porto;
+import MODEL.Rota;
+import MODELO.DAO.AgenteDAO;
 import MODELO.DAO.CargaDAO;
 import MODELO.DAO.NavioDAO;
+import MODELO.DAO.PortoDAO;
+import MODELO.DAO.RotaDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,6 +62,29 @@ public class NovoServlet extends HttpServlet {
                 excluirCarga(request, response);
                 break;
 
+            case "cadastrarporto":
+                cadastrarPorto(request, response);
+                break;
+
+            case "excluirporto":
+                excluirPorto(request, response);
+                break;
+
+            case "cadastrarrota":
+                cadastrarRota(request, response);
+                break;
+
+            case "excluirrota":
+                excluirRota(request, response);
+                break;
+
+            case "cadastraragente":
+                cadastrarAgente(request, response);
+                break;
+
+            case "excluiragente":
+                excluirAgente(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -83,7 +112,6 @@ public class NovoServlet extends HttpServlet {
         }
     }
 
-    
     private void excluirNavio(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -94,13 +122,13 @@ public class NovoServlet extends HttpServlet {
 
         //Se der sucesso no insert, leva a pagina de lista
         if (nDao.removeNavio(navioId)) {
-            response.sendRedirect("Navio.jsp");
+            response.sendRedirect("Navios.jsp");
         } else //se falhar, leva a index
         {
             response.sendRedirect("index.jsp");
         }
     }
-    
+
     private void cadastrarCarga(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -148,6 +176,119 @@ public class NovoServlet extends HttpServlet {
         //Se der sucesso no insert, leva a pagina de lista
         if (cDao.removeCarga(cargaId)) {
             response.sendRedirect("Cargas.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void cadastrarPorto(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        String nome = request.getParameter("nome");
+        String localidade = request.getParameter("localidade");
+
+        Porto p = new Porto(nome, localidade);
+
+        PortoDAO pDao = new PortoDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (pDao.inserePorto(p)) {
+            response.sendRedirect("Portos.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluirPorto(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int portoId = Integer.parseInt(request.getParameter("portoid"));
+
+        PortoDAO pDao = new PortoDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (pDao.removePorto(portoId)) {
+            response.sendRedirect("Portos.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void cadastrarRota(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int portoOrigem = Integer.parseInt(request.getParameter("porto_origem"));
+        int portoDestino = Integer.parseInt(request.getParameter("porto_destino"));
+
+        Rota r = new Rota(portoOrigem, portoDestino);
+
+        RotaDAO rDao = new RotaDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (rDao.insereRota(r)) {
+            response.sendRedirect("Rotas.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluirRota(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int rotaId = Integer.parseInt(request.getParameter("rotaid"));
+
+        RotaDAO rDao = new RotaDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (rDao.removeRota(rotaId)) {
+            response.sendRedirect("Rotas.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void cadastrarAgente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        String nome = request.getParameter("nome");
+        String telefone = request.getParameter("telefone");
+        int codigo = Integer.parseInt(request.getParameter("codigo"));
+        int porto = Integer.parseInt(request.getParameter("porto"));
+
+        Agente a = new Agente(codigo, porto, nome, telefone);
+
+        AgenteDAO aDao = new AgenteDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (aDao.insereAgente(a)) {
+            response.sendRedirect("AgentesReceptores.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+
+    private void excluirAgente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //obter infos
+        int agenteId = Integer.parseInt(request.getParameter("agenteid"));
+
+        AgenteDAO aDao = new AgenteDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (aDao.removeAgente(agenteId)) {
+            response.sendRedirect("AgentesReceptores.jsp");
         } else //se falhar, leva a index
         {
             response.sendRedirect("index.jsp");

@@ -1,3 +1,7 @@
+<%@page import="MODEL.Agente"%>
+<%@page import="MODELO.DAO.AgenteDAO"%>
+<%@page import="MODEL.Porto"%>
+<%@page import="MODELO.DAO.PortoDAO"%>
 <%@page import="MODEL.Navio"%>
 <%@page import="MODELO.DAO.NavioDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -55,28 +59,39 @@
 
         <div id="wrapper">
             <br><br><br><br>
-            <h1>Registrar Navio</h1>
+            <h1>Registrar Agente Receptor</h1>
 
-            <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
+            <form action="NovoServlet?metodo=cadastraragente" method="POST">
                 <table>
                     <tr>
                         <td>NOME</td>
                         <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
+                    </tr>                    
+                    <tr>
+                        <td>CÓDIGO DO AGENTE</td>
+                        <td><input placeholder="" id="company" name="codigo" tabindex="2" ></td>
                     </tr>
                     <tr>
-                        <td>CAPACIDADE MÁXIMA (Em KG) </td>
+                        <td>TELEFONE </td>
                         <td>
-                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
+                            <input placeholder="" id="email" name="telefone" tabindex="4"></td>
                     </tr>
-                    <tr>
-                        <td>STATUS</td>
-                        <td> <select tabindex="5" name="status">
-                                <option>Embarcada</option>
-                                <option>Ocioso</option>
-                                <option>Manutenção</option>
-                                <option>Desativado</option>
-                            </select></td>
-                    </tr>
+                    <%
+                        out.println("<tr>");
+                        out.println("<td>");
+                        out.println("PORTO ");
+                        out.println("</td>");
+                        out.println("<td><select tabindex='1' name='porto' id='porto'>");
+                        PortoDAO pDao = new PortoDAO();
+                        List<Porto> lista = pDao.getListaPortos();
+
+                        for (Porto porto : lista) {
+                            out.println("<option value=\"" + porto.getId_Porto() + "\" >" + porto.getNome() + "</option>");
+                        }
+
+                        out.println("</td>");
+                        out.println("</tr>");
+                    %>
                     <tr>
                         <td>
                             <button class="submitbtn">Submeter</button></td>
@@ -93,31 +108,36 @@
         </script>
 
         <br><br><br>
-        <h2>Navios cadastrados:</h2>
+        <h2>Agentes Receptores cadastrados:</h2>
         <table style="text-align: center;" border="1px">
             <tr>
                 <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
                 <td style="width: 250px; background-color: #c0c0c0">Nome</td>
-                <td style="width: 100px; background-color: #c0c0c0">Status</td>
-                <td style="width: 100px; background-color: #c0c0c0">Capacidade</td>
+                <td style="width: 180px; background-color: #c0c0c0">Telefone</td>
+                <td style="width: 200px; background-color: #c0c0c0">Porto</td>
                 <td style="width: 200px; background-color: #c0c0c0">Ação</td>
             </tr>
             <%
-                NavioDAO acesso = new NavioDAO();
-                Navio navioteste;
-                List<Navio> lista = acesso.getListaNavios();
+                AgenteDAO aDao = new AgenteDAO();
+                Agente agente = new Agente();
+                List<Agente> listaAgentes = aDao.getListaAgentes();
 
-                for (int i = 0; i < lista.size(); i++) {
-                    navioteste = lista.get(i);
+                for (int i = 0; i < listaAgentes.size(); i++) {
+                    agente = listaAgentes.get(i);
+                    String porto = "";
+                    Porto pt = pDao.getPorto(agente.getId_Porto());
 
+                    if (pt != null) {
+                        porto = pt.getNome();
+                    }
             %>
 
             <tr>
-                <td><%=navioteste.getId_Navio()%></td>
-                <td><%=navioteste.getNome()%></td>
-                <td><%=navioteste.getStatus()%></td>
-                <td><%=navioteste.getCap_Maxima()%></td>
-                <td>Alterar | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
+                <td><%= agente.getCod_Agente()%></td>
+                <td><%=agente.getNome()%></td>
+                <td><%=agente.getTelefone()%></td>
+                <td><%=porto%></td>
+                <td>Alterar | <a href="NovoServlet?metodo=excluiragente&agenteid=<%=agente.getCod_Agente()%>">Excluir</a></td>
             </tr>
             <%
                 }

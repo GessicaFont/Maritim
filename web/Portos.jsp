@@ -1,3 +1,5 @@
+<%@page import="MODEL.Porto"%>
+<%@page import="MODELO.DAO.PortoDAO"%>
 <%@page import="MODEL.Navio"%>
 <%@page import="MODELO.DAO.NavioDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -55,29 +57,19 @@
 
         <div id="wrapper">
             <br><br><br><br>
-            <h1>Registrar Navio</h1>
+            <h1>Registrar Porto</h1>
 
-            <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
+            <form action="NovoServlet?metodo=cadastrarporto" method="POST">
                 <table>
                     <tr>
                         <td>NOME</td>
                         <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
                     </tr>
                     <tr>
-                        <td>CAPACIDADE MÁXIMA (Em KG) </td>
+                        <td>LOCALIDADE</td>
                         <td>
-                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
+                            <input placeholder="" id="email" name="localidade" tabindex="3"></td>
                     </tr>
-                    <tr>
-                        <td>STATUS</td>
-                        <td> <select tabindex="5" name="status">
-                                <option>Embarcada</option>
-                                <option>Ocioso</option>
-                                <option>Manutenção</option>
-                                <option>Desativado</option>
-                            </select></td>
-                    </tr>
-                    <tr>
                         <td>
                             <button class="submitbtn">Submeter</button></td>
                     </tr>
@@ -93,31 +85,29 @@
         </script>
 
         <br><br><br>
-        <h2>Navios cadastrados:</h2>
+        <h2>Portos cadastrados:</h2>
         <table style="text-align: center;" border="1px">
             <tr>
                 <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
                 <td style="width: 250px; background-color: #c0c0c0">Nome</td>
-                <td style="width: 100px; background-color: #c0c0c0">Status</td>
-                <td style="width: 100px; background-color: #c0c0c0">Capacidade</td>
+                <td style="width: 100px; background-color: #c0c0c0">Localidade</td>
                 <td style="width: 200px; background-color: #c0c0c0">Ação</td>
             </tr>
             <%
-                NavioDAO acesso = new NavioDAO();
-                Navio navioteste;
-                List<Navio> lista = acesso.getListaNavios();
+                PortoDAO pDao = new PortoDAO();
+                Porto porto = new Porto();
+                List<Porto> lista = pDao.getListaPortos();
 
                 for (int i = 0; i < lista.size(); i++) {
-                    navioteste = lista.get(i);
+                    porto = lista.get(i);
 
             %>
 
             <tr>
-                <td><%=navioteste.getId_Navio()%></td>
-                <td><%=navioteste.getNome()%></td>
-                <td><%=navioteste.getStatus()%></td>
-                <td><%=navioteste.getCap_Maxima()%></td>
-                <td>Alterar | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
+                <td><%=porto.getId_Porto()%></td>
+                <td><%=porto.getNome()%></td>
+                <td><%=porto.getLocal()%></td>
+                <td>Alterar | <a href="NovoServlet?metodo=excluirporto&portoid=<%=porto.getId_Porto()%>">Excluir</a></td>
             </tr>
             <%
                 }

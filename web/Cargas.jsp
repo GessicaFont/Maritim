@@ -44,8 +44,8 @@
                             <li class=""><a href="index.jsp">Home</a></li><!-- menu links-->
                             <li><a href="Navios.jsp">Navios</a></li>  
                             <li><a href="Cargas.jsp">Cargas</a></li>
-                            <li><a href="#section-services">Rotas</a></li>
-                            <li><a href="#section-contact">Contact</a></li>
+                            <li><a href="Rotas.jsp">Rotas</a></li>
+                            <li><a href="Portos.jsp">Portos</a></li>
                         </ul>
                     </div>
 
@@ -147,7 +147,7 @@
             <%
                 CargaDAO cDao = new CargaDAO();
                 NavioDAO nDao = new NavioDAO();
-                
+
                 Carga cargateste;
                 List<Carga> listaCarga = cDao.getListaCargas();
 
@@ -155,9 +155,10 @@
                     cargateste = listaCarga.get(i);
                     String navio = "";
                     Navio nv = nDao.getNavio(cargateste.getId_Navio());
-                    
-                    if(nv!= null)
+
+                    if (nv != null) {
                         navio = nv.getNome();
+                    }
             %>
             <tr>
                 <td><%=cargateste.getId_Carga()%> </td> 
@@ -172,6 +173,6 @@
                 }
             %>
         </table>
-<br><br><br>
+        <br><br><br>
     </body>
 </html>       

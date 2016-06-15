@@ -14,4 +14,14 @@ import lombok.Data;
 public @Data class Porto {
     int Id_Porto;
     String Nome,Local;
+
+    public Porto(String Nome, String Local) {
+        this.Nome = Nome;
+        this.Local = Local;
+    }
+
+    public Porto() {
+    }
+    
+    
 }

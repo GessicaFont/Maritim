@@ -34,10 +34,7 @@ public class PortoDAO {
         porto.setId_Porto(rs.getInt("id_Porto"));
         
         porto.setNome(rs.getString("nome"));
-        porto.setLocal(rs.getString("local"));
-        
-     
-        
+        porto.setLocal(rs.getString("local"));          
         
         
         return porto;
@@ -105,15 +102,11 @@ public class PortoDAO {
         try(Connection conn = config.conectar()){
              
             //CallableStatement cs = conn.prepareCall("{call InserirPorto(?,?,?,?,?)}");
-            String sql="insert into Porto (id_Porto,nome,local) values (?,?,?)";
-            PreparedStatement cs = conn.prepareStatement(sql);
-            cs.setInt(1, porto.getId_Porto());
-            
-            cs.setString(2, porto.getNome());
-            cs.setString(3, porto.getLocal());
-            
-       
-        
+            String sql="insert into Porto (nome,local) values (?,?)";
+            PreparedStatement cs = conn.prepareStatement(sql);            
+            cs.setString(1, porto.getNome());
+            cs.setString(2, porto.getLocal());           
+               
             cs.execute();
             
         } catch (SQLException e){
@@ -161,9 +154,9 @@ public class PortoDAO {
                 return false;
             }
         
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Porto WHERE id=?"); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Porto WHERE id_porto=?"); 
             ps.setInt(1, id);
-            ps.executeQuery();
+            ps.executeUpdate();
             
         } catch (SQLException e){
             System.out.println(e.getMessage());
