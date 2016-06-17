@@ -44,7 +44,9 @@ public class CargaDAO {
         carga.setEmbarcada(rs.getBoolean("embarcada"));
         carga.setTipo(rs.getInt("tipo"));
         carga.setTemp_Max(rs.getDouble("temp_max"));
-        carga.setData_Validade(DateTime.parse(rs.getString("data_validade")));
+        
+        if(rs.getString("data_validade") != null)
+            carga.setData_Validade(DateTime.parse(rs.getString("data_validade")));
 
         return carga;
     }
@@ -114,7 +116,11 @@ public class CargaDAO {
     public boolean insereCarga(Carga carga) {
         try (Connection conn = config.conectar()) {
 
-            Date sqlData_Validade = new Date(carga.getData_Validade().toDate().getTime());
+            Date sqlData_Validade = null;
+            
+            if(carga.getData_Validade() != null)
+                sqlData_Validade = new Date(carga.getData_Validade().toDate().getTime());
+            
             Date sqlData_Max = new Date(carga.getData_Max().toDate().getTime());
 
             //CallableStatement cs = conn.prepareCall("{call InserirCarga(?,?,?,?,?)}");

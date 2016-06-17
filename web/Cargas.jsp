@@ -103,19 +103,22 @@
                     <tr>
                         <td>
                             Tipo</td>
-                        <td><select tabindex="5" name="tipo">
+                        <td><select tabindex="5" name="tipo" id="tipo" onChange="habilitaCampos()">
                                 <option value="1">Perecível</option>
                                 <option value="2">Outro tipo</option>        
                             </select></td>
                     </tr>
-                    <tr>
-                        <td>
-                            Data validade</td><td>
-                            <input placeholder="" id="email" name="validade" tabindex="4"></td></tr>
-                    <tr>
-                        <td>Temperatura máxima</td>
-                        <td><input placeholder="" id="email" name="temperatura" tabindex="4"></td></tr>
+                      
+                        <tr>
+                            <td>Data validade</td>
+                            <td><input placeholder="" id="validade" name="validade" tabindex="4"></td>
+                        </tr>
 
+                        <tr>
+                            <td>Temperatura máxima</td>
+                            <td><input placeholder="" id="temperatura" name="temperatura" tabindex="4" disabled ></td>
+                        </tr>
+                        
                     <tr><td>
                             <button class="submitbtn">Submeter</button></td>
                     </tr>
@@ -129,6 +132,25 @@
             elems.forEach(function (html) {
                 var switchery = new Switchery(html);
             });
+
+            function habilitaCampos() {
+                var x = document.getElementById("tipo").value;
+
+                if (x === "2")
+                {
+                    document.getElementById("validade").disabled = 'true';
+                    document.getElementById("validade").value = '';
+                    document.getElementById("temperatura").disabled = '';
+                }
+                else
+                {    
+                    document.getElementById("validade").disabled = '';                
+                    document.getElementById("temperatura").disabled = 'true';        
+                    document.getElementById("temperatura").value = '';
+                }
+            }
+
+
         </script>
         <br><br><br>
 

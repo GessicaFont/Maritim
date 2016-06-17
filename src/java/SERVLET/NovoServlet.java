@@ -140,7 +140,12 @@ public class NovoServlet extends HttpServlet {
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
         DateTime data_Max = formatter.parseDateTime(request.getParameter("data_max"));
-        DateTime data_validade = formatter.parseDateTime(request.getParameter("validade"));
+        String validade = request.getParameter("validade");
+
+        DateTime data_validade = null;
+        if (validade != null) {
+            data_validade = formatter.parseDateTime(request.getParameter("validade"));
+        }
 
         boolean status;
         if (request.getParameter("status").equals("1")) {
@@ -150,9 +155,14 @@ public class NovoServlet extends HttpServlet {
         }
         int tipo = Integer.parseInt(request.getParameter("tipo"));
 
-        double temperatura = Double.parseDouble(request.getParameter("temperatura"));
+        String temperatura = request.getParameter("temperatura");
+        double valorTemperatura = 0;
 
-        Carga carga = new Carga(navioId, tipo, origem, destino, peso, temperatura, data_Max, data_validade, status);
+        if (temperatura != null) {
+            valorTemperatura = Double.parseDouble(request.getParameter("temperatura"));
+        }
+
+        Carga carga = new Carga(navioId, tipo, origem, destino, peso, valorTemperatura, data_Max, data_validade, status);
 
         CargaDAO cDao = new CargaDAO();
 
