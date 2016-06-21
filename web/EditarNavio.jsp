@@ -57,22 +57,30 @@
             <br><br><br><br>
             <h1>Registrar Navio</h1>
 
-            <form action="NovoServlet?metodo=cadastrarnavio" method="POST">
+            <%
+                int idNavio = Integer.parseInt(request.getParameter("idnavio"));
+
+                NavioDAO nDao = new NavioDAO();
+                Navio nv = nDao.getNavio(idNavio);
+            %>
+            
+            <form action="NovoServlet?metodo=editarnavio" method="POST">
                 <table>
+                    <input name="idnavio" type="hidden" tabindex="2" value="<%= nv.getId_Navio()%>" />
                     <tr>
                         <td>NOME</td>
-                        <td><input placeholder="" id="company" name="nome" tabindex="2" ></td>
+                        <td><input placeholder="" id="company" name="nome" tabindex="2" value="<%= nv.getNome() %>"/></td>
                     </tr>
                     <tr>
                         <td>CAPACIDADE MÁXIMA (Em KG) </td>
                         <td>
-                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4"></td>
+                            <input placeholder="" id="email" name="Cap_Maxima" tabindex="4" value="<%= nv.getCap_Maxima()%>"/></td>
                     </tr>
                     <tr>
                         <td>STATUS</td>
                         <td> <select tabindex="5" name="status">
-                                <option>Embarcada</option>
                                 <option>Ocioso</option>
+                                <option>Embarcada</option>
                                 <option>Manutenção</option>
                                 <option>Desativado</option>
                             </select></td>
@@ -91,38 +99,5 @@
                 var switchery = new Switchery(html);
             });
         </script>
-
-        <br><br><br>
-        <h2>Navios cadastrados:</h2>
-        <table style="text-align: center;" border="1px">
-            <tr>
-                <td style="width: 50px; background-color: #c0c0c0">Identificador</td>
-                <td style="width: 250px; background-color: #c0c0c0">Nome</td>
-                <td style="width: 100px; background-color: #c0c0c0">Status</td>
-                <td style="width: 100px; background-color: #c0c0c0">Capacidade</td>
-                <td style="width: 200px; background-color: #c0c0c0">Ação</td>
-            </tr>
-            <%
-                NavioDAO acesso = new NavioDAO();
-                Navio navioteste;
-                List<Navio> lista = acesso.getListaNavios();
-
-                for (int i = 0; i < lista.size(); i++) {
-                    navioteste = lista.get(i);
-
-            %>
-
-            <tr>
-                <td><%=navioteste.getId_Navio()%></td>
-                <td><%=navioteste.getNome()%></td>
-                <td><%=navioteste.getStatus()%></td>
-                <td><%=navioteste.getCap_Maxima()%></td>
-                <td><a href="EditarNavio.jsp?idnavio=<%=navioteste.getId_Navio()%>">Alterar</a> | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
-            </tr>
-            <%
-                }
-            %>
-        </table>
-
     </body>
 </html>       

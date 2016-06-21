@@ -14,8 +14,16 @@ import lombok.Data;
 public @Data class Navio {
     int Id_Navio;
     String Nome,Status;
+    double Cap_Maxima;
 
     public Navio() {
+    }
+
+    public Navio(int Id_Navio, String Nome, String Status, double Cap_Maxima) {
+        this.Id_Navio = Id_Navio;
+        this.Nome = Nome;
+        this.Status = Status;
+        this.Cap_Maxima = Cap_Maxima;
     }
 
     public Navio(String Nome, String Status, double Cap_Maxima) {        
@@ -23,5 +31,4 @@ public @Data class Navio {
         this.Status = Status;
         this.Cap_Maxima = Cap_Maxima;
     }
-    double Cap_Maxima;
 }

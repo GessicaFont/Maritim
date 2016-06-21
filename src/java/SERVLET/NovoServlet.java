@@ -16,6 +16,7 @@ import MODELO.DAO.NavioDAO;
 import MODELO.DAO.PortoDAO;
 import MODELO.DAO.RotaDAO;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +55,10 @@ public class NovoServlet extends HttpServlet {
                 excluirNavio(request, response);
                 break;
 
+            case "editarnavio":
+                editarNavio(request, response);
+                break;
+                
             case "cadastrarcarga":
                 cadastrarCarga(request, response);
                 break;
@@ -299,6 +304,26 @@ public class NovoServlet extends HttpServlet {
         //Se der sucesso no insert, leva a pagina de lista
         if (aDao.removeAgente(agenteId)) {
             response.sendRedirect("AgentesReceptores.jsp");
+        } else //se falhar, leva a index
+        {
+            response.sendRedirect("index.jsp");
+        }
+    }
+   
+    private void editarNavio(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //obter infos
+        int idNavio = Integer.parseInt(request.getParameter("idnavio"));
+        String nome = request.getParameter("nome");
+        Double capacidade = Double.parseDouble(request.getParameter("Cap_Maxima"));
+        String status = request.getParameter("status");
+
+        Navio nv = new Navio(idNavio, nome, status, capacidade);
+
+        NavioDAO nDao = new NavioDAO();
+
+        //Se der sucesso no insert, leva a pagina de lista
+        if (nDao.atualizaNavio(nv)) {
+            response.sendRedirect("Navios.jsp");
         } else //se falhar, leva a index
         {
             response.sendRedirect("index.jsp");

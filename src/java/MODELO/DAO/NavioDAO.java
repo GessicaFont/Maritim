@@ -138,13 +138,13 @@ public class NavioDAO {
                 return false;
             }
 
-            String sql = "insert into Navio (id_Navio,nome,status,capacidade) values (?,?,?,?)";
-            PreparedStatement cs = conn.prepareStatement(sql);
-            cs.setInt(1, navio.getId_Navio());
+            String sql = "update navio set nome = ?, status = ?, cap_maxima = ? where id_navio = ?";
+            PreparedStatement cs = conn.prepareStatement(sql);           
 
-            cs.setString(2, navio.getNome());
-            cs.setString(3, navio.getStatus());
-            cs.setDouble(4, navio.getCap_Maxima());
+            cs.setString(1, navio.getNome());
+            cs.setString(2, navio.getStatus());
+            cs.setDouble(3, navio.getCap_Maxima());
+             cs.setInt(4, navio.getId_Navio());
 
             cs.execute();
 

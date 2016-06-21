@@ -117,7 +117,7 @@
                 <td><%=navioteste.getNome()%></td>
                 <td><%=navioteste.getStatus()%></td>
                 <td><%=navioteste.getCap_Maxima()%></td>
-                <td>Alterar | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
+                <td><a href="EditarNavio.jsp?idnavio=<%=navioteste.getId_Navio()%>">Alterar</a> | <a href="NovoServlet?metodo=excluirnavio&navioid=<%=navioteste.getId_Navio()%>">Excluir</a></td>
             </tr>
             <%
                 }
